@@ -1,40 +1,167 @@
+
+html {
+    min-height: 100%;
+    background: #0f172a;
+    overscroll-behavior: none;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    isolation: isolate;
+    background: transparent;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: -30%;
+    z-index: -1;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 20% 30%,
+            rgba(0, 190, 190, 0.55),
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(110, 60, 190, 0.55),
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 60% 80%,
+            rgba(30, 100, 180, 0.55),
+            transparent 45%
+        ),
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(20, 130, 130, 0.35),
+            transparent 40%
+        );
+
+    filter: blur(70px);
+    animation: meshMove 18s ease-in-out infinite alternate;
+}
+
+@keyframes meshMove {
+    0% {
+        transform: translate(-4%, -3%) scale(1);
+    }
+
+    50% {
+        transform: translate(4%, 3%) scale(1.1);
+    }
+
+    100% {
+        transform: translate(-2%, 5%) scale(1.05);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body::before {
+        animation: none;
+    }
+}
+/* 
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    isolation: isolate;
+    background: transparent;
+}
+
+
+
+/* Aurora background layer */
+/* body::before {
+    content: "";
+    position: fixed;
+    inset: -30%;
+    z-index: -1;
+    pointer-events: none;
+
+    background:
+        radial-gradient(ellipse at 20% 30%,
+            rgba(0, 180, 200, 0.45), transparent 45%),
+
+        radial-gradient(ellipse at 75% 25%,
+            rgba(100, 50, 180, 0.5), transparent 45%),
+
+        radial-gradient(ellipse at 50% 80%,
+            rgba(20, 80, 160, 0.5), transparent 50%);
+
+    filter: blur(65px);
+    animation: aurora 16s ease-in-out infinite alternate;
+}
+
+/* Additional moving light */
+/* body::after {
+    content: "";
+    position: fixed;
+    inset: -30%;
+    z-index: -1;
+    pointer-events: none;
+
+    background:
+        radial-gradient(ellipse at 80% 70%,
+            rgba(0, 220, 180, 0.25), transparent 40%);
+
+    filter: blur(80px);
+    animation: aurora2 20s ease-in-out infinite alternate;
+}
+
+@keyframes aurora {
+    0% {
+        transform: translate(-5%, -3%) rotate(0deg);
+    }
+
+    50% {
+        transform: translate(5%, 4%) rotate(10deg);
+    }
+
+    100% {
+        transform: translate(-3%, 6%) rotate(-8deg);
+    }
+} */
+
+/* @keyframes aurora2 {
+    0% {
+        transform: translate(5%, 0%);
+    }
+
+    100% {
+        transform: translate(-8%, -5%);
+    }
+}  */
+/* 
 body{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     text-align: center;
-    background: linear-gradient(
-        -45deg,
-        #0f2027,
-        #203a43,
-        #2c5364,
-        #6a3093
-    );
-    background-size: 400% 400%;
-    animation: gradient 12s ease infinite;
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
+} */
 
 h1 {
-    font-size: clamp(40px, 8vw, 100px);
-    height:200px;
+    font-size: clamp(2.2rem, 7vw, 5rem);
+    height:auto;
     width:auto;
     color: white;
+    margin: 20px 0;
 }
 h3{
-    font-size:clamp(40px, 7vw, 50px) ;
+    font-size:clamp(1.5rem, 5vw, 3rem) ;
     color: white;
 }
 .boxes{
@@ -44,7 +171,7 @@ h3{
     gap: 20px;
     width: 90%;
 }
-.box{
+/* .box{
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
@@ -61,14 +188,37 @@ h3{
     font-size:larger;
     font-weight:900;
     transition: transform 0.2s ease;
+} */
+
+.box {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    gap: 10px;
+
+    width: clamp(180px, 25vw, 230px);
+    height: 120px;
+
+    border: 2px solid black;
+    border-radius: 8px;
+    background-color: rgb(102, 131, 150);
+    color: whitesmoke;
+    font-size: larger;
+    font-weight: 900;
+    transition: transform 0.2s ease;
 }
+
 #tasks
 {
-    background-image: url("https://www.shutterstock.com/image-vector/big-task-word-small-people-260nw-1429801826.jpg");
-    background-size: 100%;
+    background-image: url("https://www.sweetprocess.com/wp-content/uploads/2022/10/task-management-30-1.png");
+    background-size: 110%;
     background-position: center;
     background-repeat: no-repeat;
 }
+
 #habits
 {
     background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVQfEcmoEpsO2M2UVjb9ISiOXTf37abXuw1WTyOSzrgFC6MlyPyBYSCkwe&s=10);
@@ -131,8 +281,7 @@ h3{
   margin: 5px; /* Adds space after the plus sign */
   font-weight: bold;
 }
-
-.modal {
+/* .modal {
     display: none;
     position: fixed;
     
@@ -142,6 +291,17 @@ h3{
     transform: translate(-50%, -50%);
     height: 150px;
     width: 250px;
+} */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    height: auto;
+    width: min(250px, calc(100vw - 32px));
+    padding: 15px;
 }
 
 .modal.show {
@@ -149,7 +309,7 @@ h3{
     flex-direction: column;
     gap: 15px;
 }
-.modal2 {
+/* .modal2 {
     display: none;
     top: 50%;
     left: 50%;
@@ -157,6 +317,18 @@ h3{
     transform: translate(-50%, -50%);
     height: 150px;
     width: 250px;
+} */
+.modal2 {
+    display: none;
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+    height: auto;
+    width: min(250px, calc(100vw - 32px));
+    padding: 15px;
 }
 
 .modal2.show {
@@ -190,7 +362,7 @@ h3{
     gap: 15px;
     width: 90%;
 }
-.notes{
+/* .notes{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -206,4 +378,63 @@ h3{
 
     box-sizing: border-box;
     transition: transform 0.2s ease;
+} */
+
+.notes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border: 2px solid black;
+    border-radius: 4px;
+
+    width: min(100%, 400px);
+    padding: 10px;
+    gap: 10px;
+
+    background-color: rgb(102, 131, 150);
+    color: wheat;
+
+    box-sizing: border-box;
+    transition: transform 0.2s ease;
+}
+
+/* Mobile screens */
+@media screen and (max-width: 600px) {
+
+    .boxes {
+        width: 95%;
+        gap: 12px;
+    }
+
+    .box {
+        width: calc(50% - 10px);
+        min-width: 0;
+        height: 110px;
+        padding: 10px;
+    }
+
+    .container,
+    #containsNotes {
+        width: 95%;
+    }
+
+    .taskbar {
+        width: 100%;
+        gap: 10px;
+    }
+
+    .taskbar .tasks {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .btn {
+        padding: 6px 8px;
+        flex-shrink: 0;
+    }
+
+    .notes {
+        width: 100%;
+    }
 }

@@ -1,4 +1,4 @@
-let container = document.querySelector(".container");
+let container = document.querySelector("#containsTasks");
 let containsNotes=document.querySelector("#containsNotes");
 
 let add=document.querySelector(".btn-add");
@@ -15,70 +15,145 @@ let addtask2=document.querySelector("#add-btn");
 
 let tasks = JSON.parse(localStorage.getItem("tasks"))||[];
 
-    function createTask() {
-    let task = document.querySelector("#add-task");
+tasks=tasks.map(task=>
+    typeof task === "string" ? {text:task, completed: false}:task
+)
 
-    tasks.push(task.value);
-    localStorage.setItem("tasks",JSON.stringify(tasks));
+    function displayTask() {
+    container.innerHTML = "";
 
-    let taskbar=document.createElement("div");
-    taskbar.className="taskbar";
-    container.append(taskbar);
+    tasks.forEach((task,index)=> {
+        
+        let taskbar=document.createElement("div");
+        taskbar.className="taskbar";
+    
+        let taskContent=document.createElement("div");
+        taskContent.className="tasks";
+    
+        let checkbox = document.createElement("input");
+        checkbox.type="checkbox";
+        checkbox.id = "task-" + index;
+        checkbox.checked=task.completed;
+    
+        let label = document.createElement("label");
+        label.textContent=task.text;
+        label.htmlFor = checkbox.id;
 
-    let taskContent=document.createElement("div");
-    taskContent.className="tasks";
-    taskbar.append(taskContent);
+        if (task.completed) {
+            label.style.textDecoration = "line-through";
+        }
 
-    let checkbox = document.createElement("input");
-    checkbox.type="checkbox";
-    taskContent.append(checkbox);
+        taskContent.append(checkbox,label);
+        taskbar.append(taskContent);
+    
+        //updating completion status
+        checkbox.addEventListener("change",function(){
+            tasks[index].completed=checkbox.checked;
+            saveTasks();
 
-    let label = document.createElement("label");
-    label.textContent=task.value;
-    taskContent.append(label);
+            label.style.textDecoration = checkbox.checked
+                ? "line-through"
+                : "none";
+        })
 
-
-    let delbtn = document.createElement("button");
-    delbtn.className="btn";
-    delbtn.textContent="DELETE";
-    taskbar.append(delbtn);
-
-    delbtn.addEventListener("click", function() {
-    deleteTask(this.parentElement);
+        let delbtn = document.createElement("button");
+        delbtn.className="btn";
+        delbtn.textContent="DELETE";
+        
+        delbtn.addEventListener("click", function() {
+            deleteTask(index);
+        });
+        
+        taskbar.append(delbtn);
+        container.append(taskbar);
     });
-
-    modal.classList.remove("show");
-    task.value="";
 }
 
-function deleteTask(taskbar){
-    taskbar.remove();
+    function createTask()
+    {
+        let task=document.querySelector("#add-task");
+        let value=task.value.trim();
+        if(value==="")
+            return;
+
+        tasks.push({
+            text:value,
+            completed:false
+        })
+
+        saveTasks();
+        displayTask();
+        modal.classList.remove("show");
+        task.value="";
+    }
+function saveTasks()
+{
+    localStorage.setItem("tasks",JSON.stringify(tasks));
 }
+
+function deleteTask(index){
+    tasks.splice(index, 1);
+    saveTasks();
+    displayTask();
+}
+displayTask();
+
+//same goes for notes
+
+let notes=JSON.parse(localStorage.getItem("notes"))||[];
 
 function createNotes(){
 
-    let notes = document.createElement("div");
-    notes.className = "notes";
-    
     let note=document.querySelector("#add-task2");
-    notes.textContent=note.value;
-    containsNotes.append(notes);
-
-    let delbtn = document.createElement("button");
-    delbtn.className="btn";
-    delbtn.textContent="DELETE";
-    notes.append(delbtn);
-
-    delbtn.addEventListener("click", function() {
-    deleteNotes(this.parentElement);
-    });
+    let value=note.value.trim();
+    
+    if(value==="")
+        return;
+    
+    notes.push(value);
+    saveNotes();
+    displayNotes();
 
     modal2.classList.remove("show");
     note.value="";
 }
 
-function deleteNotes(containsNotes){
-    containsNotes.remove();
+function displayNotes() {
+    containsNotes.innerHTML = "";
+
+    notes.forEach((note, index) => {
+
+        // Create notesElem
+    let notesElem = document.createElement("div");
+    notesElem.className = "notes";
+
+        // Set note text
+        notesElem.textContent = note;
+
+        // Create delete button
+    let delbtn = document.createElement("button");
+    delbtn.className="btn";
+    delbtn.textContent="DELETE";
+
+        // Delete button should call deleteNotes(index)
+    delbtn.addEventListener("click", function() {
+    deleteNotes(index);
+    });
+        // Append everything to containsNotes
+    notesElem.append(delbtn);
+    containsNotes.append(notesElem);
+    });
+}
+displayNotes();
+
+function saveNotes() {
+    localStorage.setItem("notes", JSON.stringify(notes));
+}
+
+function deleteNotes(index) {
+    notes.splice(index, 1);
+    saveNotes();
+    displayNotes();
 }
 
 add.addEventListener("click", function()
