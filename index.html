@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Productivity Tracker Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1 class="heading">My Dashboard</h1>
+    <h3>Hello!! Akshara</h3>
+    <div class="boxes">
+        <div class="box" id="tasks">
+            <div class="small">8</div>
+        </div>
+        <div class="box" id="habits">
+            <div class="small">5/7</div>
+        </div>
+        <div class="box" id="expenses">
+            <div class="small">₹1,250</div>
+        </div>
+    </div>
+
+    <h3>Tasks</h3>
+    <h2 style="color: white;">To add tasks, click on '+'</h2>
+    <div class="container" id="containsNotes">
+    </div>
+    <div class="recBox">
+    <div class="tasks" style="color: white;">Add task
+        <button class="btn-add">+</button>
+        </div>
+        <div class="modal">
+            <input type="text" id="add-task" placeholder="Enter your task....">
+            <button class="cancel-btn">Cancel Task</button>
+            <button class="add-btn">Add Task</button>
+        </div>
+    </div>
+
+    <h3>Notes</h3>
+    <h2 style="color: white;">To add Notes, click on '+'</h2>
+    <div class="container" id="containsNotes">
+    </div>
+    <div class="recBox">
+        <div class="add-note" style="color: white;">Add a note
+            <button class="add-icon"></button>
+        </div>
+        </div>
+        <div class="modal2">
+            <input type="text" id="add-task2" placeholder="Enter your notes....">
+            <button class="cancel-btn" id="cancel-btn">Cancel Task</button>
+            <button class="add-btn" id="add-btn">Add Task</button>
+        </div>
+    <script src="script.js"></script>
+</body>
+</html>
