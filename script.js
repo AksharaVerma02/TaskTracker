@@ -13,6 +13,21 @@ let addtask=document.querySelector(".add-btn");
 let cancel2=document.querySelector("#cancel-btn");
 let addtask2=document.querySelector("#add-btn");
 
+function updateProgress()
+{
+    let completed=tasks.filter(task=>task.completed).length;
+    let total=tasks.length;
+
+    let count=document.querySelector("#task-count");
+    let progress=document.querySelector("#progress-fill");
+
+    count.textContent=`${completed}/${total} completed`;
+
+    let percentage= total===0?0:(completed/total)*100;
+    progress.style.width=percentage+"%";
+}
+
+
 let tasks = JSON.parse(localStorage.getItem("tasks"))||[];
 
 tasks=tasks.map(task=>
@@ -50,6 +65,7 @@ tasks=tasks.map(task=>
         checkbox.addEventListener("change",function(){
             tasks[index].completed=checkbox.checked;
             saveTasks();
+            updateProgress();
 
             label.style.textDecoration = checkbox.checked
                 ? "line-through"
@@ -83,6 +99,7 @@ tasks=tasks.map(task=>
 
         saveTasks();
         displayTask();
+        updateProgress();
         modal.classList.remove("show");
         task.value="";
     }
@@ -95,8 +112,10 @@ function deleteTask(index){
     tasks.splice(index, 1);
     saveTasks();
     displayTask();
+    updateProgress();
 }
 displayTask();
+updateProgress();
 
 //same goes for notes
 
