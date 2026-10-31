@@ -69,6 +69,15 @@ body::before {
         animation: none;
     }
 }
+body:has(.modal.show)::after,
+body:has(.modal2.show)::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(3px);
+    z-index: 999;
+}
 
 h1 {
     font-size: clamp(2.2rem, 7vw, 5rem);
@@ -103,18 +112,23 @@ h3{
     width: clamp(180px, 25vw, 230px);
     height: 120px;
 
-    border: 2px solid black;
-    border-radius: 8px;
-    background-color: rgb(102, 131, 150);
     color: whitesmoke;
     font-size: larger;
     font-weight: 900;
-    transition: transform 0.2s ease;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 15px;
+
+    background-color: rgba(102, 131, 150, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
 #tasks
 {
-    background-image: url("https://www.sweetprocess.com/wp-content/uploads/2022/10/task-management-30-1.png");
+    /* background-image: url("https://www.sweetprocess.com/wp-content/uploads/2022/10/task-management-30-1.png"); */
     background-size: 110%;
     background-position: center;
     background-repeat: no-repeat;
@@ -122,21 +136,21 @@ h3{
 
 #habits
 {
-    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVQfEcmoEpsO2M2UVjb9ISiOXTf37abXuw1WTyOSzrgFC6MlyPyBYSCkwe&s=10);
+    /* background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVQfEcmoEpsO2M2UVjb9ISiOXTf37abXuw1WTyOSzrgFC6MlyPyBYSCkwe&s=10); */
     background-size:100%;
     background-position: center;
     background-repeat: no-repeat;
 }
 #expenses
 {
-    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcpOQ8Fh8yTDOoLUvRPlsyn9Jv6f7-dzLlrAIsEbBgcQqklJLsCziIPoCg&s=10);
+    /* background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcpOQ8Fh8yTDOoLUvRPlsyn9Jv6f7-dzLlrAIsEbBgcQqklJLsCziIPoCg&s=10); */
     background-size:100%;
     background-position: center;
     background-repeat: no-repeat;
 }
 .box:hover{
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 .tasks{
     display: flex;
@@ -144,22 +158,30 @@ h3{
     gap: 10px;
 }
 .taskbar:hover{
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 .taskbar{
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    border: 2px solid black;
-    border-radius: 4px;
     width: 100%;
     padding: 10px;
-    background-color: rgb(36, 76, 81);
+
     color: white;
     box-sizing: border-box;
-    transition: transform 0.2s ease;
+
+    background-color: rgba(36, 76, 81, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
 }
 .recBox{
     border: 2px solid rgb(100, 108, 129);
@@ -170,7 +192,28 @@ h3{
 .btn{
     padding: 6px 12px;
     cursor: pointer;
+
+    color: white;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    transition: all 0.3s ease;
 }
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: scale(0.96);
+}
+
  .add-icon::before {
   content: "+";      /* Or use the Unicode: content: "\002B"; */
   margin: 5px; /* Adds space after the plus sign */
@@ -183,21 +226,33 @@ h3{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 1000;
 
     height: auto;
     width: min(250px, calc(100vw - 32px));
     padding: 15px;
+
+    background: rgba(25, 35, 55, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
 .modal.show {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    animation: modalAppear 0.3s ease forwards;
 }
 
 .modal2 {
     display: none;
     position: fixed;
+    z-index: 1000;
 
     top: 50%;
     left: 50%;
@@ -206,23 +261,59 @@ h3{
     height: auto;
     width: min(250px, calc(100vw - 32px));
     padding: 15px;
+
+    background: rgba(25, 35, 55, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
 .modal2.show {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    animation: modalAppear 0.3s ease forwards;
 }
-#add-task{
-    height:30px;
-    width:245px;
-    border: 2px solid black;
+
+#add-task,
+#add-task2 {
+    height: 40px;
+    width: 245px;
+    max-width: 90%;
+
+    padding: 8px 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    outline: none;
+    transition: all 0.3s ease;
 }
-#add-task2{
-    height:30px;
-    width:245px;
-    border: 2px solid black;
+
+
+#add-task:focus,
+#add-task2:focus {
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
 }
+
+
+#add-task::placeholder,
+#add-task2::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+
 .container{
     display: flex;
     flex-wrap: wrap;
@@ -245,19 +336,93 @@ h3{
     align-items: center;
     justify-content: space-between;
 
-    border: 2px solid black;
-    border-radius: 4px;
-
     width: min(100%, 400px);
     padding: 10px;
     gap: 10px;
 
-    background-color: rgb(102, 131, 150);
     color: wheat;
 
     box-sizing: border-box;
-    transition: transform 0.2s ease;
+
+    background-color: rgba(102, 131, 150, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
 }
+.notes:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+
+.btn-add {
+    width: 35px;
+    height: 35px;
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 22px;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-add:hover {
+    transform: rotate(90deg) scale(1.1);
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+
+.add-icon {
+    width: 35px;
+    height: 35px;
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-icon:hover {
+    transform: rotate(90deg) scale(1.1);
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+
+.cancel-btn,
+.add-btn {
+    padding: 8px 14px;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cancel-btn:hover,
+.add-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
 
 /* Mobile screens */
 @media screen and (max-width: 600px) {
@@ -296,5 +461,17 @@ h3{
 
     .notes {
         width: 100%;
+    }
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -45%) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
     }
 }
