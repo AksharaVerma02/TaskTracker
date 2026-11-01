@@ -14,15 +14,15 @@
         <div class="box" id="tasks">
             <div class="small">8</div>
         </div>
-        <div class="box" id="habits">
+        <div class="box" id="notes">
             <div class="small">5/7</div>
         </div>
-        <div class="box" id="expenses">
+        <div class="box" id="habits">
             <div class="small">₹1,250</div>
         </div>
     </div>
 
-    <h3>Tasks</h3>
+    <h3 id="tasks-section">Tasks</h3>
 
     <div class="task-progress">
         <p id="task-count">0/0 completed</p>
@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <h3>Notes</h3>
+    <h3 id="notes-section">Notes</h3>
     <h2 style="color: white;">To add Notes, click on '+'</h2>
     <div class="container" id="containsNotes">
     </div>
@@ -59,6 +59,27 @@
             <button class="cancel-btn" id="cancel-btn">Cancel Notes</button>
             <button class="add-btn" id="add-btn">Add Notes</button>
     </div>
+
+    <!-- habit -->
+     <h3 id="habits-section">Habits</h3>
+    <div class="habits">
+        <div class="habit">
+            Read a book everyday
+            <button class="btn">delete</button>
+        </div>
+        <div class="streaks">7🔥</div>
+    </div>
+    <div class="recBox">
+    <div class="add-habit" style="color: white;">
+        Add a habit
+        <button class="add-btn-habit">+</button>
+    </div>
+    </div>
+    <div class="modal3">
+            <input type="text" id="add-habit" placeholder="Enter your habit....">
+            <button class="cancel-btn" id="cancel-btn3">Cancel Habit</button>
+            <button class="add-btn" id="add-btn3">Add Habit</button>
+        </div>
     <script src="script.js"></script>
 </body>
 </html>

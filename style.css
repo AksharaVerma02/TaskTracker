@@ -213,6 +213,7 @@ h3{
     transition: all 0.3s ease;
 }
 .recBox{
+    padding-top: 20px;
     border: 2px solid rgb(100, 108, 129);
     width: fit-content;
     padding: 5px 10px 5px 10px;
@@ -271,14 +272,16 @@ h3{
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
-.modal.show {
+.modal.show,
+.modal2.show,
+.modal3.show {
     display: flex;
     flex-direction: column;
     gap: 15px;
     animation: modalAppear 0.3s ease forwards;
 }
 
-.modal2 {
+.modal2,.modal3 {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -301,15 +304,9 @@ h3{
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
-.modal2.show {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    animation: modalAppear 0.3s ease forwards;
-}
-
 #add-task,
-#add-task2 {
+#add-task2,
+#add-habit {
     height: 40px;
     width: 245px;
     max-width: 90%;
@@ -331,14 +328,16 @@ h3{
 
 
 #add-task:focus,
-#add-task2:focus {
+#add-task2:focus,
+#add-habit:focus {
     border-color: rgba(255, 255, 255, 0.7);
     box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
 }
 
 
 #add-task::placeholder,
-#add-task2::placeholder {
+#add-task2::placeholder,
+#add-habit::placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
 
@@ -347,7 +346,6 @@ h3{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-
     gap: 15px;
     width: 90%;
 }
@@ -355,7 +353,6 @@ h3{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-
     gap: 15px;
     width: 90%;
 }
@@ -389,7 +386,7 @@ h3{
 }
 
 
-.btn-add {
+.btn-add, .add-btn-habit {
     width: 35px;
     height: 35px;
 
@@ -404,14 +401,14 @@ h3{
     transition: all 0.3s ease;
 }
 
-.btn-add:hover {
+.btn-add:hover, .add-btn-habit:hover {
     transform: rotate(90deg) scale(1.1);
     background: rgba(255, 255, 255, 0.3);
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
 
-.add-icon {
+.add-icon{
     width: 35px;
     height: 35px;
 
@@ -452,6 +449,54 @@ h3{
     transform: translateY(-2px);
 }
 
+.habit-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.habits{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 80%;color: white;
+}
+
+.habit{
+    display:flex;
+    flex: 1;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    min-width: 0;
+    width: 80%;
+    padding: 5px;
+    gap: 10px;
+    box-sizing: border-box;
+    border:1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: #0f172a;
+    transition: all 0.3s ease;
+}
+.habit:hover{
+    /* background: rgba(255, 255, 255, 0.25); */
+    transform: translateY(-2px);
+}
+.streaks
+{
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 5px;
+    content:"/1F525";
+    width: fit-content;
+}
 
 /* Mobile screens */
 @media screen and (max-width: 600px) {
@@ -469,7 +514,7 @@ h3{
     }
 
     .container,
-    #containsNotes {
+    #containsNotes,.habits {
         width: 95%;
     }
 
@@ -490,6 +535,11 @@ h3{
 
     .notes {
         width: 100%;
+    }
+
+    .habit
+    {
+        width: 50;
     }
 }
 
