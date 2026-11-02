@@ -70,7 +70,8 @@ body::before {
     }
 }
 body:has(.modal.show)::after,
-body:has(.modal2.show)::after {
+body:has(.modal2.show)::after,
+body:has(.modal3.show)::after {
     content: "";
     position: fixed;
     inset: 0;
@@ -366,7 +367,7 @@ h3{
     padding: 10px;
     gap: 10px;
 
-    color: wheat;
+    color: white;
 
     box-sizing: border-box;
 

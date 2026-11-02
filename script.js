@@ -264,7 +264,7 @@ habitList.forEach((habit,index)=>
     checkbox.type = "checkbox";
 
     checkbox.addEventListener("change", function() {
-        let today = new Date().toISOString().split("T")[0];
+        let today = getTodayDate();
         if(checkbox.checked)
         {
             habit.completedDates.push(today);
@@ -277,9 +277,10 @@ habitList.forEach((habit,index)=>
             saveHabits();
             displayHabits();
         }
+        console.log(habit.completedDates);
+        console.log(getTodayDate());
 });
-checkbox.checked = habit.completedDates.includes(
-new Date().toISOString().split("T")[0]
+checkbox.checked = habit.completedDates.includes(getTodayDate()
 );
 
     let streaks=document.createElement("div");
@@ -315,12 +316,30 @@ function calculateStreaks(habit){
     today.setHours(0, 0, 0, 0);
     let streak=0;
     let currentDate = new Date(today);
-    while (habit.completedDates.includes(currentDate.toISOString().split("T")[0]))
+    while (habit.completedDates.includes(formatLocalDate(currentDate)))
         {
             streak++;
             currentDate.setDate(currentDate.getDate() - 1);
         }
-        return streak;
+    return streak;
+}
+
+function formatLocalDate(date) {
+    let year = date.getFullYear();
+    let month = String(date.getMonth() + 1).padStart(2, "0");
+    let day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+function getTodayDate() {
+    let date = new Date();
+
+    let year = date.getFullYear();
+    let month = String(date.getMonth() + 1).padStart(2, "0");
+    let day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
 }
 
 displayHabits();
