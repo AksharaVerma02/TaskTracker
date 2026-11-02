@@ -19,6 +19,28 @@ let clickTasks=document.querySelector("#tasks");
 let clickNotes=document.querySelector("#notes");
 let clickHabits=document.querySelector("#habits");
 
+
+getDailyQuote();
+async function getDailyQuote() {
+    try {
+        let response = await fetch("https://dummyjson.com/quotes/random");
+
+        let data = await response.json();
+
+        let quote=data.quote;
+        let author=data.author;
+
+        document.querySelector("#quote").textContent = quote;
+        document.querySelector("#author").textContent =`Author: ${author}`;
+
+    } 
+    catch (error) {
+        console.error("Error fetching quote:", error);
+    }
+}
+
+getDailyQuote();
+
 clickTasks.addEventListener("click",function()
 {
 document.querySelector("#tasks-section").scrollIntoView({
