@@ -93,6 +93,14 @@ h3{
     font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
+#quote::before {
+    content: "“";
+}
+
+#quote::after {
+    content: "”";
+}
+
 .quote-container {
     display: flex;
     flex-direction: column;
