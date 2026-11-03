@@ -1,5 +1,12 @@
+let timer=document.querySelector(".circle");
+let start=document.querySelector("#start");
+let pause=document.querySelector("#pause");
+let resume=document.querySelector("#resume");
+let reset=document.querySelector("#reset");
+
 let container = document.querySelector("#containsTasks");
 let containsNotes=document.querySelector("#containsNotes");
+
 let habits=document.querySelector(".habits");
 let add=document.querySelector(".btn-add");
 let add2=document.querySelector(".add-note");
@@ -19,6 +26,9 @@ let clickTasks=document.querySelector("#tasks");
 let clickNotes=document.querySelector("#notes");
 let clickHabits=document.querySelector("#habits");
 
+let focus = document.querySelector("#focus");
+let shortBreak = document.querySelector("#short");
+let longBreak = document.querySelector("#long");
 
 getDailyQuote();
 async function getDailyQuote() {
@@ -59,6 +69,86 @@ document.querySelector("#habits-section").scrollIntoView({
     behavior: "smooth"
 });
 })
+
+let time=25*60;
+let interval;
+//function for time update
+function updateTimer()
+{
+    let min=Math.floor(time/60);
+    let sec=time%60;
+
+    timer.textContent=`${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
+}
+
+let hasStarted = false;
+function runTimer() {
+    if (interval) return;
+
+    interval = setInterval(function () {
+        if (time > 0) {
+            time--;
+            updateTimer();
+        } else {
+            clearInterval(interval);
+            interval = null;
+        }
+    }, 1000);
+}
+
+start.addEventListener("click", function () {
+    clearInterval(interval);
+    interval = null;
+
+    time = 25 * 60;
+    updateTimer();
+    hasStarted = true;
+    runTimer();
+});
+
+pause.addEventListener("click",function()
+{
+    clearInterval(interval);
+    interval=null;
+})
+
+resume.addEventListener("click",function()
+{
+    if (!hasStarted || interval) 
+        return;
+    runTimer();
+})
+
+reset.addEventListener("click",function()
+{
+    clearInterval(interval);
+    interval=null;
+    time=25*60;
+    hasStarted = false;
+    updateTimer();
+})
+
+function changeMode(minutes) {
+    clearInterval(interval);
+    interval = null;
+
+    time = minutes * 60;
+    hasStarted = false;
+
+    updateTimer();
+}
+
+focus.addEventListener("click", function () {
+    changeMode(25);
+});
+
+shortBreak.addEventListener("click", function () {
+    changeMode(5);
+});
+
+longBreak.addEventListener("click", function () {
+    changeMode(15);
+});
 
 function updateProgress()
 {
@@ -333,16 +423,23 @@ function saveHabits() {
     localStorage.setItem("habits", JSON.stringify(habitList));
 }
 
-function calculateStreaks(habit){
+function calculateStreaks(habit) {
     let today = new Date();
     today.setHours(0, 0, 0, 0);
-    let streak=0;
+
     let currentDate = new Date(today);
-    while (habit.completedDates.includes(formatLocalDate(currentDate)))
-        {
-            streak++;
-            currentDate.setDate(currentDate.getDate() - 1);
-        }
+
+    if (!habit.completedDates.includes(getTodayDate())) {
+        currentDate.setDate(currentDate.getDate() - 1);
+    }
+
+    let streak = 0;
+
+    while (habit.completedDates.includes(formatLocalDate(currentDate))) {
+        streak++;
+        currentDate.setDate(currentDate.getDate() - 1);
+    }
+
     return streak;
 }
 
