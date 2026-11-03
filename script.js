@@ -164,18 +164,36 @@ function updateProgress()
     progress.style.width=percentage+"%";
 }
 
-
+let searchTask = document.querySelector("#search-task");
+let filterTask = document.querySelector("#filter-task");
 let tasks = JSON.parse(localStorage.getItem("tasks"))||[];
 
 tasks=tasks.map(task=>
     typeof task === "string" ? {text:task, completed: false}:task
 )
+saveTasks();
 
     function displayTask() {
     container.innerHTML = "";
+    let searchValue = searchTask.value.toLowerCase();
+    let filterValue = filterTask.value;
 
     tasks.forEach((task,index)=> {
         
+        // Searching condition
+        let matchesSearch = task.text.toLowerCase().includes(searchValue);
+
+        // Filter condition
+        let matchesFilter =
+            filterValue === "all" ||
+            (filterValue === "completed" && task.completed) ||
+            (filterValue === "pending" && !task.completed);
+
+        // Skip tasks that don't match
+        if (!matchesSearch || !matchesFilter) {
+            return;
+        }
+
         let taskbar=document.createElement("div");
         taskbar.className="taskbar";
     
@@ -203,7 +221,7 @@ tasks=tasks.map(task=>
             tasks[index].completed=checkbox.checked;
             saveTasks();
             updateProgress();
-
+            displayTask();
             label.style.textDecoration = checkbox.checked
                 ? "line-through"
                 : "none";
@@ -221,6 +239,9 @@ tasks=tasks.map(task=>
         container.append(taskbar);
     });
 }
+
+searchTask.addEventListener("input", displayTask);
+filterTask.addEventListener("change", displayTask);
 
     function createTask()
     {

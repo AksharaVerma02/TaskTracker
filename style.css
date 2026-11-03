@@ -140,7 +140,71 @@ h3{
     text-align: right;
     margin-left: auto;
 }
+.task-tools {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    margin: 15px 0;
+}
 
+#filter-task {
+    flex-shrink: 0;
+
+    padding: 12px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    outline: none;
+
+    transition: all 0.3s ease;
+}
+
+#filter-task:hover,
+#filter-task:focus {
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+#filter-task option {
+    background-color: #203a43;
+    color: white;
+}
+#search-task {
+    flex: 1;
+    min-width: 0;
+
+    padding: 12px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+
+    color: white;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#search-task::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#search-task:focus {
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
+}
 .modes {
     display: flex;
     justify-content: center;
@@ -630,6 +694,22 @@ h3{
         min-width: 0;
         height: 110px;
         padding: 10px;
+    }
+
+    .task-tools {
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 8px;
+    }
+
+    #search-task {
+        width: 65%;
+        min-width: 0;
+    }
+
+    #filter-task {
+        width: 35%;
     }
 
     .container_pomo {
