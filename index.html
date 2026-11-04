@@ -46,6 +46,43 @@
     </div>
 </div>
 
+
+<section class="calendar-section" id="calendar-section">
+
+    <h2 style="color: white;">MY CALENDAR 📅</h2>
+
+    <div class="calendar-container">
+
+        <div class="calendar-header">
+            <button id="prev-month" class="btn">&lt;</button>
+            <h3 id="month-year"></h3>
+            <button id="next-month" class="btn">&gt;</button>
+        </div>
+
+        <div class="calendar-weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+
+        <div class="calendar-dates" id="calendar-dates"></div>
+
+    </div>
+
+    
+<div class="selected-date-tasks">
+    <h3 id="selected-date-heading">Select a date to view tasks</h3>
+    <div id="date-task-list"></div>
+</div>
+
+
+</section>
+
+
     <h3 id="tasks-section">Tasks</h3>
 
     <div class="task-tools">
@@ -73,6 +110,8 @@
         </div>
         <div class="modal">
             <input type="text" id="add-task" placeholder="Enter your task....">
+                <label for="task-due-date">Due date (optional)</label>
+                <input type="date" id="task-due-date">
             <button class="cancel-btn">Cancel Task</button>
             <button class="add-btn">Add Task</button>
         </div>

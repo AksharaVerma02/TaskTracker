@@ -18,6 +18,7 @@ let modal3=document.querySelector(".modal3");
 
 let cancel=document.querySelector(".cancel-btn");
 let addtask=document.querySelector(".add-btn");
+let taskDueDate = document.querySelector("#task-due-date");
 
 let cancel2=document.querySelector("#cancel-btn");
 let addtask2=document.querySelector("#add-btn");
@@ -150,6 +151,132 @@ longBreak.addEventListener("click", function () {
     changeMode(15);
 });
 
+
+let date = new Date();
+
+let currYear = date.getFullYear();
+let currMonth = date.getMonth();
+
+let monthYear = document.querySelector("#month-year");
+let calendarDates = document.querySelector("#calendar-dates");
+
+function renderCalendar() {
+
+    // First day of the month
+    let firstDay = new Date(currYear, currMonth, 1).getDay();
+
+    // Total days in the month
+    let lastDate = new Date(currYear, currMonth + 1, 0).getDate();
+
+    // Month and year heading
+    let monthName = new Date(currYear, currMonth)
+        .toLocaleString("default", { month: "long" });
+
+    monthYear.textContent = `${monthName} ${currYear}`;
+
+    calendarDates.innerHTML = "";
+
+    // Empty spaces before the first date
+    for (let i = 0; i < firstDay; i++) {
+        let empty = document.createElement("div");
+        empty.classList.add("empty");
+        calendarDates.append(empty);
+    }
+
+    // Generate all dates
+    for (let i = 1; i <= lastDate; i++) {
+
+        let day = document.createElement("div");
+        day.textContent = i;
+        
+day.addEventListener("click", function() {
+
+    let selectedDate =
+        `${currYear}-${String(currMonth + 1).padStart(2, "0")}-${String(i).padStart(2, "0")}`;
+
+    showTasksForDate(selectedDate);
+
+});
+
+        // Highlight today's date
+        let today = new Date();
+
+        if (
+            i === today.getDate() &&
+            currMonth === today.getMonth() &&
+            currYear === today.getFullYear()
+        ) {
+            day.classList.add("today");
+        }
+
+        calendarDates.append(day);
+    }
+}
+
+
+function showTasksForDate(selectedDate) {
+
+    let dayTasks = tasks.filter(task => task.dueDate === selectedDate);
+
+    let heading = document.querySelector("#selected-date-heading");
+    let taskList = document.querySelector("#date-task-list");
+
+    heading.textContent = `Tasks for ${selectedDate}`;
+    taskList.innerHTML = "";
+
+    if (dayTasks.length === 0) {
+        taskList.textContent = "No tasks scheduled for this date ✨";
+        return;
+    }
+
+    dayTasks.forEach(task => {
+
+        let taskItem = document.createElement("div");
+        taskItem.className = "calendar-task";
+
+        let taskName = document.createElement("span");
+        taskName.textContent = task.text;
+
+        if (task.completed) {
+            taskName.style.textDecoration = "line-through";
+        }
+
+        taskItem.append(taskName);
+        taskList.append(taskItem);
+
+    });
+}
+
+
+renderCalendar();
+
+
+let prevMonth = document.querySelector("#prev-month");
+let nextMonth = document.querySelector("#next-month");
+
+prevMonth.addEventListener("click", function() {
+    currMonth--;
+
+    if (currMonth < 0) {
+        currMonth = 11;
+        currYear--;
+    }
+
+    renderCalendar();
+});
+
+nextMonth.addEventListener("click", function() {
+    currMonth++;
+
+    if (currMonth > 11) {
+        currMonth = 0;
+        currYear++;
+    }
+
+    renderCalendar();
+});
+
+
 function updateProgress()
 {
     let completed=tasks.filter(task=>task.completed).length;
@@ -247,12 +374,14 @@ filterTask.addEventListener("change", displayTask);
     {
         let task=document.querySelector("#add-task");
         let value=task.value.trim();
+        let dueDate = taskDueDate.value;
         if(value==="")
             return;
 
         tasks.push({
             text:value,
-            completed:false
+            completed:false,
+            dueDate:dueDate || null
         })
 
         saveTasks();
@@ -260,6 +389,7 @@ filterTask.addEventListener("change", displayTask);
         updateProgress();
         modal.classList.remove("show");
         task.value="";
+        taskDueDate.value = "";
     }
 function saveTasks()
 {

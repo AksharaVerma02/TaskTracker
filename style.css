@@ -200,10 +200,50 @@ h3{
     color: rgba(255, 255, 255, 0.6);
 }
 
-#search-task:focus {
+
+.selected-date-tasks {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 20px;
+    padding: 20px;
+
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 12px;
+    background-color: rgba(102,131,150,0.25);
+    backdrop-filter: blur(12px);
+
+    color: white;
+}
+
+#selected-date-heading {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.calendar-task {
+    padding: 12px 15px;
+    margin-bottom: 10px;
+
+    border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+}
+
+
+label[for="task-due-date"] {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+#search-task:focus,
+#task-due-date:focus {
     border-color: rgba(255, 255, 255, 0.5);
     background: rgba(255, 255, 255, 0.12);
     box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
+}
+#task-due-date::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(1);
 }
 .modes {
     display: flex;
@@ -273,6 +313,102 @@ h3{
     background-color: rgba(102, 131, 150, 0.45);
     transform: translateY(-2px);
 }
+
+
+.calendar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin: 40px auto;
+    width: 80%;
+}
+
+.calendar-container {
+    width: 100%;
+    padding: 25px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 15px;
+    background-color: rgba(102,131,150,0.25);
+    backdrop-filter: blur(12px);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.calendar-header h3 {
+    color: white;
+    font-size: 22px;
+}
+
+.calendar-weekdays,
+.calendar-dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    gap: 10px;
+}
+
+.calendar-weekdays div {
+    color: rgba(255,255,255,0.7);
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.calendar-dates div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.calendar-dates div:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.calendar-dates .today {
+    background-color: rgba(255,255,255,0.25);
+    border: 1px solid white;
+    font-weight: bold;
+}
+
+.calendar-dates .empty {
+    cursor: default;
+}
+
+@media (max-width: 600px) {
+    .calendar-section {
+        width: 95%;
+    }
+
+    .calendar-container {
+        padding: 15px;
+    }
+
+    .calendar-weekdays,
+    .calendar-dates {
+        gap: 5px;
+    }
+
+    .calendar-dates div {
+        height: 38px;
+        font-size: 14px;
+    }
+
+    .calendar-header h3 {
+        font-size: 18px;
+    }
+}
+
 
 .boxes{
     display: flex;
@@ -489,7 +625,8 @@ h3{
 
 #add-task,
 #add-task2,
-#add-habit {
+#add-habit,
+#task-due-date {
     height: 40px;
     width: 245px;
     max-width: 90%;
