@@ -8,6 +8,8 @@ A personal productivity dashboard built using HTML, CSS, and JavaScript to organ
 - **Habit Tracker** – Track daily habits and maintain streaks.
 - **Notes Section** – Create and manage personal notes.
 - **Progress Tracking** – Visual progress bar to monitor completed tasks.
+- **Pomodoro Technique** - Timer that helps to stay focused with some break intervals.
+- **Calendar Feature** - Manage, filter or add tasks for a particular date.
 - **Local Storage** – Saves tasks, habits, and notes even after refreshing the page.
 - **Responsive Design** – Works across different screen sizes.
 - **Interactive UI** – Smooth animations, hover effects, modals, and a glassmorphism design.
@@ -16,8 +18,12 @@ A personal productivity dashboard built using HTML, CSS, and JavaScript to organ
 
 - HTML5
 - CSS3
-- JavaScript
-- Browser Local Storage
+- JavaScript (ES6+)
+- Browser Local Storage (Web Storage API)
+- JavaScript Date API
+- Fetch API
+- Git & GitHub
+- GitHub Pages
 
 ## Live Demo
 
