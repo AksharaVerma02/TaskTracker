@@ -29,6 +29,23 @@ A personal productivity dashboard built using HTML, CSS, and JavaScript to organ
 
 View Live Website ---> https://aksharaverma02.github.io/TaskTracker/
 
+
+## Screenshots
+
+### Dashboard
+![Dashboard Preview](images/dashboard.png)
+
+### Calendar View
+![Calendar Preview](images/calendar.png)
+
+### Pomodoro Timer
+![Pomodoro Preview](images/pomodoro.png)
+
+### Tasks View
+![Pomodoro Preview](images/tasks.png)
+
+
+
 ## Future Improvements
 
 - User authentication
