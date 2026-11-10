@@ -5,6 +5,20 @@ html {
     overscroll-behavior: none;
 }
 
+.heading {
+    animation: reveal 3.0s ease-out both;
+}
+
+@keyframes reveal {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+
 body {
     display: flex;
     flex-direction: column;
